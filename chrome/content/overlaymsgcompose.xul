@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://sendfilter/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://sendfilter/locale/overlay.dtd">
+<overlay id="sendfilter-overlaymail"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script src="common.js"/>
+  <script src="overlaymsgcompose.js"/>
+</overlay>

@@ -1,0 +1,9 @@
+content sendfilter chrome/content/
+overlay	chrome://messenger/content/FilterListDialog.xul	chrome://sendfilter/content/overlaydialog.xul
+overlay	chrome://messenger/content/messengercompose/messengercompose.xul	chrome://sendfilter/content/overlaymsgcompose.xul
+overlay	chrome://messenger/content/mailWindowOverlay.xul	chrome://sendfilter/content/overlaymailwindow.xul
+
+locale sendfilter en-US chrome/locale/en-US/
+locale sendfilter ja-JP chrome/locale/ja-JP/
+locale sendfilter zh-CN chrome/locale/zh-CN/
+locale sendfilter zh-TW chrome/locale/zh-TW/
