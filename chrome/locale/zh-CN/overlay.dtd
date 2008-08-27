@@ -1,1 +1,2 @@
 <!ENTITY sendfilter.label "在已发送邮件的保存目录启用送信过滤">
+<!ENTITY sendfilter.option.logging "开启日志">

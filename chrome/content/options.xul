@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://sendfilter/locale/overlay.dtd">
+
+<dialog id="sendfilter.options"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  title="Send Filter"
+  autostretch="always"
+  buttons="accept,cancel"
+  onload="DialogInit();"
+  ondialogaccept="return DialogAccept();"
+  >
+
+  <script src="options.js" />
+  <script src="common.js" />
+
+  <groupbox>
+    <checkbox 
+      id="chkLogging" 
+      label="&sendfilter.option.logging;"
+    />
+  </groupbox>
+</dialog>

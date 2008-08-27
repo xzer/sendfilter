@@ -1,1 +1,2 @@
 <!ENTITY sendfilter.label "送信済み保存先に自動的に適用する">
+<!ENTITY sendfilter.option.logging "トレーシング有効">

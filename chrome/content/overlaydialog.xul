@@ -3,11 +3,11 @@
 <!DOCTYPE overlay SYSTEM "chrome://sendfilter/locale/overlay.dtd">
 <overlay id="sendfilter-overlaydialog"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-  <script src="common.js"/>
-  <script src="overlaydialog.js"/>
-  <window id="filterListDialog">
-  <checkbox id="sendfilter-ck" checked="false"
-  	onclick="SendFilter_EditHandler.onChecked();"
-  	label="&sendfilter.label;"/>
+	<script src="common.js"/>
+	<script src="overlaydialog.js"/>
+	<window id="filterListDialog">
+		<checkbox id="sendfilter-ck" checked="false"
+			onclick="SendFilter_EditHandler.onChecked();"
+			label="&sendfilter.label;"/>
 	</window>
 </overlay>
