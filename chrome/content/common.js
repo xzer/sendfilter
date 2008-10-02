@@ -1,5 +1,8 @@
 const SENDFILTER_KEY="net.xzer.sendfiler.enable";
 const SENDFILTER_LOGGING_KEY="net.xzer.sendfiler.logging.enable";
+const SENDFILTER_FOLDERPER="SendFilter_WaitForListener";
+const SENDFILTER_FOLDERPER_WAITLOAD="1";
+const SENDFILTER_FOLDERPER_LOADED="2";
 
 var SendFilter_PrefBranch = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch(null);
 var SendFilter_Console = Components.classes["@mozilla.org/consoleservice;1"].getService(Components.interfaces.nsIConsoleService)
@@ -70,17 +73,69 @@ function SendFilter_setFilterEnable(b){
 	SendFilter_PrefBranch.setBoolPref(SENDFILTER_KEY,b);
 }
 
+
+var SendFilter_FolderListener = {
+  OnItemAdded: function(parentItem, item) {},
+  OnItemRemoved: function(parentItem, item) {},
+  OnItemPropertyChanged: function(item, property, oldValue, newValue) {},
+  OnItemIntPropertyChanged: function(item, property, oldValue, newValue) {},
+  OnItemBoolPropertyChanged: function(item, property, oldValue, newValue) {},
+  OnItemUnicharPropertyChanged: function(item, property, oldValue, newValue){},
+  OnItemPropertyFlagChanged: function(item, property, oldFlag, newFlag) {},
+
+  OnItemEvent: function(folder, event) {
+    var eventType = event.toString();
+    if (eventType == "FolderLoaded") {
+      if (folder) {
+        var uri = folder.URI;
+		var msgFolder = folder.QueryInterface(Components.interfaces.nsIMsgFolder);
+		var waitFor = msgFolder.getStringProperty(SENDFILTER_FOLDERPER);
+		if (waitFor == SENDFILTER_FOLDERPER_WAITLOAD)
+		{
+			msgFolder.setStringProperty(SENDFILTER_FOLDERPER, SENDFILTER_FOLDERPER_LOADED);
+			SendFilter_runFilter(uri);
+		}
+      }
+	}
+  }
+
+}
+
+var SendFilter_mailSession = Components.classes[mailSessionContractID]
+                                .getService(Components.interfaces.nsIMsgMailSession);
+var nsIFolderListener = Components.interfaces.nsIFolderListener;
+SendFilter_mailSession.AddFolderListener(SendFilter_FolderListener, Components.interfaces.nsIFolderListener.event);
+
 function SendFilter_runFilter(folderURI)
 {
+
 	var logger = new SendFilter_Logger("SendFilter_runFilter()");
 	
-	logger.trace("Begin SendFilter_runFilter(), folderURI = " + folderURI);
+	logger.trace("Begin SendFilter_runFilter(), folderURI = [" + folderURI + "]");
 
 	var rdf = Components.classes["@mozilla.org/rdf/rdf-service;1"].getService(Components.interfaces.nsIRDFService);
 	var resource = rdf.GetResource(folderURI);
 	var msgFolder = resource.QueryInterface(Components.interfaces.nsIMsgFolder);
-
+	
 	logger.trace("Get message folter " + msgFolder);
+
+	if (folderURI.indexOf("imap") == 0){
+		logger.trace("is an imap folder");
+		var waitFor = msgFolder.getStringProperty(SENDFILTER_FOLDERPER);
+		logger.trace("waitFor = " + waitFor);
+		if (waitFor != SENDFILTER_FOLDERPER_LOADED){
+			logger.trace("loading folder from server");
+			msgFolder.setStringProperty(SENDFILTER_FOLDERPER, SENDFILTER_FOLDERPER_WAITLOAD);
+			msgFolder.startFolderLoading();
+			msgFolder.updateFolder(msgWindow);
+			logger.trace("finish SendFilter_runFilter for waiting load listener");
+			logger.release();
+			return;
+		}
+		logger.trace("imap folder loaded");
+		msgFolder.setStringProperty(SENDFILTER_FOLDERPER, "");
+	}
+
 
 	var filterService = Components.classes["@mozilla.org/messenger/services/filters;1"].getService(Components.interfaces.nsIMsgFilterService);
 	var filterList = filterService.getTempFilterList(msgFolder);
@@ -119,3 +174,5 @@ function SendFilter_runFilter(folderURI)
 	logger.trace("Finished fire filters");
 	logger.release();
 }
+
+

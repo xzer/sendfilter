@@ -1,3 +1,22 @@
+function isSentFolder(folderURI){
+	var accountManager = Components.classes["@mozilla.org/messenger/account-manager;1"]
+									.getService(Components.interfaces.nsIMsgAccountManager);
+	var allIdentities = accountManager.allIdentities;
+	var identitiesCount = allIdentities.Count();
+	var currentIdentity,fccFolder;
+	var found = false;
+	for (var i = 0; i < identitiesCount; i++) {
+		currentIdentity = allIdentities.QueryElementAt(i, Components.interfaces.nsIMsgIdentity);
+		if (currentIdentity.fccFolder){
+			if (currentIdentity.fccFolder == folderURI){
+				found = true;
+				break;
+			}
+		}
+	}
+	return found;
+}
+
 var originComposeProcessDone=stateListener.ComposeProcessDone;
 function SendFilter_ComposeProcessDone(aResult){
 	
@@ -10,8 +29,16 @@ function SendFilter_ComposeProcessDone(aResult){
 	logger.trace("Finished the calling of the original stateListener.ComposeProcessDone()");
 
 	if(aResult == Components.results.NS_OK && SendFilter_isFilterEnable()){
-		SendFilter_runFilter(gMsgCompose.savedFolderURI);
-		logger.trace("Finished calling runFilter");
+		var folderURI = gMsgCompose.savedFolderURI;
+		logger.trace("Message saved at " + folderURI);
+		if (isSentFolder(folderURI)){
+			logger.trace("call SendFilter_runFilter");
+			SendFilter_runFilter(folderURI);
+			logger.trace("Finished calling runFilter");
+		}else{
+			logger.trace("Folder is not Sent Folder");
+		}
+
 	}else{
 		logger.trace("SendFilter_isFilterEnable = " + SendFilter_isFilterEnable());
 		logger.trace("send result = " + aResult + "(Components.results.NS_OK=" + Components.results.NS_OK + ")");

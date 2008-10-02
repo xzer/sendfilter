@@ -9,12 +9,20 @@ var SendFilter_EditHandler = {
 
 		logger.trace("get ck " + ck);
 
+/*
 		var oWindow = ck.parentNode;
 		if (oWindow){
 			oWindow.removeChild(ck);
 		}
 		var tar = oWindow.childNodes.item(7);
 		oWindow.insertBefore(ck,tar);
+*/
+
+
+	  	var el = document.getElementById("serverMenu").parentNode.nextSibling;
+		if (el){
+			el.parentNode.insertBefore(ck,el);
+ 		}
 
 		logger.trace("ck inserted.");
 		
