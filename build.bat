@@ -1,16 +1,6 @@
 set x=sendfilter
-
-set cdir="%cd%"
-
 mkdir build
-xcopy %cdir% build /i /e
-
-xcopy build\content build\chrome\content /i /e
-xcopy build\locale build\chrome\locale /i /e
-xcopy build\skin build\chrome\skin /i /e
-rmdir /s /q build\content
-rmdir /s /q build\locale
-rmdir /s /q build\skin
+xcopy "%x%" build /i /e
 
 cd build\chrome
 7z a -tzip "%x%.jar" * -r -mx=0
@@ -20,9 +10,11 @@ rmdir /s /q build\chrome\content
 rmdir /s /q build\chrome\locale
 rmdir /s /q build\chrome\skin
 
-replace chrome.manifest build
-
 cd build
+
+del chrome.manifest
+ren chrome.manifest.arch chrome.manifest
+
 7z a -tzip "%x%.xpi" * -r -mx=9
 cd ..
 

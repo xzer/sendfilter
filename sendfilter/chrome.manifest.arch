@@ -1,0 +1,9 @@
+content sendfilter jar:chrome/sendfilter.jar!/content/
+overlay	chrome://messenger/content/FilterListDialog.xul	chrome://sendfilter/content/overlaydialog.xul
+overlay	chrome://messenger/content/messengercompose/messengercompose.xul	chrome://sendfilter/content/overlaymsgcompose.xul
+overlay	chrome://messenger/content/mailWindowOverlay.xul	chrome://sendfilter/content/overlaymailwindow.xul
+
+locale sendfilter en-US jar:chrome/sendfilter.jar!/locale/en-US/
+locale sendfilter ja-JP jar:chrome/sendfilter.jar!/locale/ja-JP/
+locale sendfilter zh-CN jar:chrome/sendfilter.jar!/locale/zh-CN/
+locale sendfilter zh-TW jar:chrome/sendfilter.jar!/locale/zh-TW/

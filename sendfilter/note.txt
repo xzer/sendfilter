@@ -1,0 +1,10 @@
+0.9
+  
+  first release version
+
+1.0
+
+  ADD compatibility to SeaMonkey
+  ADD log feature
+  FIX sometimes dosn't work on IMAP folder
+  FIX uncorrectly filter messages when saving without sending
