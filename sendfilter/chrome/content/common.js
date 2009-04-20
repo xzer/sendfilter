@@ -88,12 +88,18 @@ var SendFilter_FolderListener = {
     if (eventType == "FolderLoaded") {
       if (folder) {
         var uri = folder.URI;
-		var msgFolder = folder.QueryInterface(Components.interfaces.nsIMsgFolder);
-		var waitFor = msgFolder.getStringProperty(SENDFILTER_FOLDERPER);
-		if (waitFor == SENDFILTER_FOLDERPER_WAITLOAD)
-		{
-			msgFolder.setStringProperty(SENDFILTER_FOLDERPER, SENDFILTER_FOLDERPER_LOADED);
-			SendFilter_runFilter(uri);
+		// when pop3 folder, there is a component not defined error, I should refactory my source to avoid this
+		// but I have no time, so just catch it simplly.
+		try{
+			var msgFolder = folder.QueryInterface(Components.interfaces.nsIMsgFolder);
+			var waitFor = msgFolder.getStringProperty(SENDFILTER_FOLDERPER);
+			if (waitFor == SENDFILTER_FOLDERPER_WAITLOAD)
+			{
+				msgFolder.setStringProperty(SENDFILTER_FOLDERPER, SENDFILTER_FOLDERPER_LOADED);
+				SendFilter_runFilter(uri);
+			}
+		}catch(ex){
+			//
 		}
       }
 	}
@@ -101,7 +107,8 @@ var SendFilter_FolderListener = {
 
 }
 
-var SendFilter_mailSession = Components.classes[mailSessionContractID]
+//var SendFilter_mailSession = Components.classes[mailSessionContractID]
+var SendFilter_mailSession = Components.classes["@mozilla.org/messenger/services/session;1"]
                                 .getService(Components.interfaces.nsIMsgMailSession);
 var nsIFolderListener = Components.interfaces.nsIFolderListener;
 SendFilter_mailSession.AddFolderListener(SendFilter_FolderListener, Components.interfaces.nsIFolderListener.event);
