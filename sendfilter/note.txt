@@ -13,3 +13,7 @@
 
   FIX javascript error of "Component is not defined" when saving to a pop3 local sent folder
   FIX javascript error of "mailSessionContractID is not defined" at sometime  
+
+1.0.2
+
+  ADD updateURL to install.rdf

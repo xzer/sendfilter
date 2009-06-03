@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<RDF:RDF xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <RDF:Description about="urn:mozilla:extension:sendfilter@xzer.net">
+    <em:updates>
+      <RDF:Seq>
+        <!-- The resource attribute points to an RDF:Description entry below with
+             a matching about attribute. The actual uri can be whatever you like -->
+        <RDF:li resource="urn:mozilla:extension:sendfilter@xzer.net:1.0.2"/>
+      </RDF:Seq>
+    </em:updates>
+
+  </RDF:Description>
+
+  <!-- This represents the same Description within the li from the previous example -->
+  <RDF:Description about="urn:mozilla:extension:sendfilter@xzer.net:1.0.2">
+    <em:version>1.0.2</em:version>
+
+    <!-- Thunderbird -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
+	 <em:minVersion>2.0</em:minVersion>
+	 <em:maxVersion>2.0.0.*</em:maxVersion>
+	 <em:updateLink>http://www.xzer.net/download/sendfilter.1.0.2.xpi</em:updateLink>
+      </Description>
+    </em:targetApplication>
+
+    <!-- SeaMonkey -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
+	<em:minVersion>1.0</em:minVersion>
+	<em:maxVersion>2.0a2</em:maxVersion>
+	<em:updateLink>http://www.xzer.net/download/sendfilter.1.0.2.xpi</em:updateLink>
+      </Description>
+    </em:targetApplication>
+
+
+  </RDF:Description>
+
+</RDF:RDF>
