@@ -113,6 +113,23 @@ var SendFilter_mailSession = Components.classes["@mozilla.org/messenger/services
 var nsIFolderListener = Components.interfaces.nsIFolderListener;
 SendFilter_mailSession.AddFolderListener(SendFilter_FolderListener, Components.interfaces.nsIFolderListener.event);
 
+function SendFilter_ReloadImapSentFolder(folderURI)
+{
+	var logger = new SendFilter_Logger("SendFilter_ReloadImapSentFolder()");
+	logger.trace("Begin SendFilter_ReloadImapSentFolder(), folderURI = [" + folderURI + "]");
+
+	var rdf = Components.classes["@mozilla.org/rdf/rdf-service;1"].getService(Components.interfaces.nsIRDFService);
+	var resource = rdf.GetResource(folderURI);
+	var msgFolder = resource.QueryInterface(Components.interfaces.nsIMsgFolder);
+	logger.trace("loading folder from server");
+	//alert("wait for a moment for reloading...");
+	msgFolder.setStringProperty(SENDFILTER_FOLDERPER, SENDFILTER_FOLDERPER_WAITLOAD);
+	msgFolder.startFolderLoading();
+	msgFolder.updateFolder(msgWindow);
+	logger.trace("finish SendFilter_ReloadImapSentFolder for waiting load listener");
+	logger.release();
+}
+
 function SendFilter_runFilter(folderURI)
 {
 
@@ -131,11 +148,8 @@ function SendFilter_runFilter(folderURI)
 		var waitFor = msgFolder.getStringProperty(SENDFILTER_FOLDERPER);
 		logger.trace("waitFor = " + waitFor);
 		if (waitFor != SENDFILTER_FOLDERPER_LOADED){
-			logger.trace("loading folder from server");
-			msgFolder.setStringProperty(SENDFILTER_FOLDERPER, SENDFILTER_FOLDERPER_WAITLOAD);
-			msgFolder.startFolderLoading();
-			msgFolder.updateFolder(msgWindow);
-			logger.trace("finish SendFilter_runFilter for waiting load listener");
+			logger.trace("call SendFilter_ReloadImapSentFolder for waiting for 0 seconds");
+			setTimeout("SendFilter_ReloadImapSentFolder(\"" + folderURI + "\")",0);
 			logger.release();
 			return;
 		}
