@@ -121,11 +121,15 @@ function SendFilter_ReloadImapSentFolder(folderURI)
 	var rdf = Components.classes["@mozilla.org/rdf/rdf-service;1"].getService(Components.interfaces.nsIRDFService);
 	var resource = rdf.GetResource(folderURI);
 	var msgFolder = resource.QueryInterface(Components.interfaces.nsIMsgFolder);
+	//var msgFolder = resource.QueryInterface(Components.interfaces.nsIImapMailFolderSink);
 	logger.trace("loading folder from server");
 	//alert("wait for a moment for reloading...");
 	msgFolder.setStringProperty(SENDFILTER_FOLDERPER, SENDFILTER_FOLDERPER_WAITLOAD);
 	msgFolder.startFolderLoading();
 	msgFolder.updateFolder(msgWindow);
+	//if(msgFolder){
+	//	msgFolder.OnNewIdleMessages();
+	//}
 	logger.trace("finish SendFilter_ReloadImapSentFolder for waiting load listener");
 	logger.release();
 }

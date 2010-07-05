@@ -18,6 +18,10 @@
 
   ADD updateURL to install.rdf
   
-1.0.2
+1.0.3
 
   ADD compatibility to Thunderbird 3.0
+  
+1.0.4
+
+  ADD compatibility to Thunderbird 3.1  
