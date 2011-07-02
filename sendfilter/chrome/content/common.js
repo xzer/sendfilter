@@ -110,7 +110,7 @@ var SendFilter_FolderListener = {
 //var SendFilter_mailSession = Components.classes[mailSessionContractID]
 var SendFilter_mailSession = Components.classes["@mozilla.org/messenger/services/session;1"]
                                 .getService(Components.interfaces.nsIMsgMailSession);
-var nsIFolderListener = Components.interfaces.nsIFolderListener;
+//var nsIFolderListener = Components.interfaces.nsIFolderListener;
 SendFilter_mailSession.AddFolderListener(SendFilter_FolderListener, Components.interfaces.nsIFolderListener.event);
 
 function SendFilter_ReloadImapSentFolder(folderURI)

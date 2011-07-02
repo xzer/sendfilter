@@ -6,7 +6,7 @@
   
     <em:id>sendfilter@xzer.net</em:id>
     <em:name>Send Filter</em:name>
-    <em:version>1.0.4</em:version>
+    <em:version>1.0.5</em:version>
     <em:description>Enable the message filters on sent folder automatically</em:description>
     <em:creator>xzer</em:creator>
     <em:optionsURL>chrome://sendfilter/content/options.xul</em:optionsURL>

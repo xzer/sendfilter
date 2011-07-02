@@ -1,2 +1,2 @@
-<!ENTITY sendfilter.label "Enable autorun after sending message on the saved folder">
+<!ENTITY sendfilter.label "Enable autorun of filters on sent messages in all accounts">
 <!ENTITY sendfilter.option.logging "Enable Logging">

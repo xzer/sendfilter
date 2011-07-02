@@ -1,2 +1,2 @@
-<!ENTITY sendfilter.label "送信済み保存先に自動的に適用する">
+<!ENTITY sendfilter.label "送信メールに自動的に適用する（全部アカウント有効）">
 <!ENTITY sendfilter.option.logging "トレーシング有効">
