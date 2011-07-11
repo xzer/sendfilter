@@ -26,7 +26,7 @@ function SendFilter_Logger(p){
 	this.trace = function(s){
 		if (this.isEnable)
 		{
-			SendFilter_LoggerString += "\t(" + this.id + ")  " + s + "\n";
+			SendFilter_LoggerString += "\t&(" + this.id + ")  " + s + "\n";
 		}
 	}
 
@@ -153,7 +153,7 @@ function SendFilter_runFilter(folderURI)
 		logger.trace("waitFor = " + waitFor);
 		if (waitFor != SENDFILTER_FOLDERPER_LOADED){
 			logger.trace("call SendFilter_ReloadImapSentFolder for waiting for 0 seconds");
-			setTimeout("SendFilter_ReloadImapSentFolder(\"" + folderURI + "\")",0);
+			setTimeout(SendFilter_ReloadImapSentFolder,0, folderURI);
 			logger.release();
 			return;
 		}

@@ -51,7 +51,7 @@ var SendFilter_WaitHandler = {
 	},
 	
 	registerTimer : function(){
-		setTimeout("SendFilter_WaitHandler.ontimer()",1000);	
+		setTimeout(SendFilter_WaitHandler.ontimer,1000);	
 	}
 	
 }
