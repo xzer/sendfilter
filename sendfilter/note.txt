@@ -25,3 +25,8 @@
 1.0.4
 
   ADD compatibility to Thunderbird 3.1  
+
+1.0.5
+
+  FIX source refactoring
+  ADD compatibility to Thunderbird 3.1
