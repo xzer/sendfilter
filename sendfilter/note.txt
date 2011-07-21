@@ -29,4 +29,4 @@
 1.0.5
 
   FIX source refactoring
-  ADD compatibility to Thunderbird 3.1
+  ADD compatibility to Thunderbird 5.0
