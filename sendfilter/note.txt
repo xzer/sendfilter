@@ -30,3 +30,7 @@
 
   FIX source refactoring
   ADD compatibility to Thunderbird 5.0
+
+1.0.5.1
+
+  ADD compatibility to Thunderbird 9.0

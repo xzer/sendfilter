@@ -1,1 +1,15 @@
 http://forums.mozillazine.org/viewtopic.php?t=419695&sid=38ca7de6075dc203684c615fbc959663 
+
+****************************
+
+valid versions:
+https://addons.mozilla.org/en-US/firefox/pages/appversions/
+
+****************************
+
+version info should be fixed in following files:
+
+sendfilterUpdate.rdf
+note.txt
+install.js
+install.rdf
