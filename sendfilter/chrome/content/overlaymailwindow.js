@@ -1,3 +1,5 @@
+Components.utils.import("resource://gre/modules/iteratorUtils.jsm");
+
 function SendFilter_RunFiltersAfterSendLater(){
 	var logger = new SendFilter_Logger("SendFilter_RunFiltersAfterSendLater()");
 	if ( !SendFilter_isFilterEnable() ) {
@@ -8,10 +10,8 @@ function SendFilter_RunFiltersAfterSendLater(){
 	if (accountManager) {
 		logger.trace("Ready to run filters");
 		var allIdentities = accountManager.allIdentities;
-		var identitiesCount = allIdentities.Count();
 		var currentIdentity,fccFolder;
-		for (var i = 0; i < identitiesCount; i++) {
-			currentIdentity = allIdentities.QueryElementAt(i, Components.interfaces.nsIMsgIdentity);
+		for (let currentIdentity in fixIterator(allIdentities, Components.interfaces.nsIMsgIdentity)) {
 			if (currentIdentity.fccFolder){
 				logger.trace("call filter at " + currentIdentity.fccFolder);
 				SendFilter_runFilter(currentIdentity.fccFolder);
@@ -79,4 +79,20 @@ function SendFilter_SendUnsentHooker(){
 	logger.release();
 
 }
+
 SendUnsentMessages = SendFilter_SendUnsentHooker;
+
+function SendFilter_checkRecycleWindowValue(){
+      var key = "mail.compose.max_recycled_windows";
+      var recycleWindowValue = SendFilter_PrefBranch.getIntPref(key);
+      if(recycleWindowValue){
+        //do nothing
+      }else{
+        if(confirm("SendFilter requires '" + key + "' must be greater than 0, "
+                   + "click 'OK' to set it to 1 automatically or uninstall SendFilter if you canceled this prompt.")){
+          SendFilter_PrefBranch.setIntPref(key, 1);
+        }
+      }
+}
+
+window.setTimeout(SendFilter_checkRecycleWindowValue, 5 * 1000);

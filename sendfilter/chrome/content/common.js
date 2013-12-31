@@ -96,7 +96,9 @@ var SendFilter_FolderListener = {
 			if (waitFor == SENDFILTER_FOLDERPER_WAITLOAD)
 			{
 				msgFolder.setStringProperty(SENDFILTER_FOLDERPER, SENDFILTER_FOLDERPER_LOADED);
-				SendFilter_runFilter(uri);
+                //on send later called, it seems that tb need more time to synchnorize the folder contents, 
+                //so we wait for 5 seconds.
+                setTimeout(SendFilter_runFilter,5 * 1000, uri);
 			}
 		}catch(ex){
 			//
@@ -145,7 +147,7 @@ function SendFilter_runFilter(folderURI)
 	var resource = rdf.GetResource(folderURI);
 	var msgFolder = resource.QueryInterface(Components.interfaces.nsIMsgFolder);
 	
-	logger.trace("Get message folter " + msgFolder);
+	logger.trace("Get message folder " + msgFolder);
 
 	if (folderURI.indexOf("imap") == 0){
 		logger.trace("is an imap folder");
@@ -167,8 +169,8 @@ function SendFilter_runFilter(folderURI)
 
 	logger.trace("Create temp filter list " + filterList);
 
-	var folders = Components.classes["@mozilla.org/supports-array;1"].createInstance(Components.interfaces.nsISupportsArray);
-	folders.AppendElement(msgFolder);
+    var folders = Components.classes["@mozilla.org/array;1"].createInstance(Components.interfaces.nsIMutableArray);
+    folders.appendElement(msgFolder,false);
 
 	var curFilterList = msgFolder.getFilterList(msgWindow);
 

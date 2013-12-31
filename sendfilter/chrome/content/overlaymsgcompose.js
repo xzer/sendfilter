@@ -1,12 +1,12 @@
+Components.utils.import("resource://gre/modules/iteratorUtils.jsm");
+
 function SendFilter_isSentFolder(folderURI){
 	var accountManager = Components.classes["@mozilla.org/messenger/account-manager;1"]
 									.getService(Components.interfaces.nsIMsgAccountManager);
 	var allIdentities = accountManager.allIdentities;
-	var identitiesCount = allIdentities.Count();
 	var currentIdentity,fccFolder;
 	var found = false;
-	for (var i = 0; i < identitiesCount; i++) {
-		currentIdentity = allIdentities.QueryElementAt(i, Components.interfaces.nsIMsgIdentity);
+	for (let currentIdentity in fixIterator(allIdentities, Components.interfaces.nsIMsgIdentity)) {
 		if (currentIdentity.fccFolder){
 			if (currentIdentity.fccFolder == folderURI){
 				found = true;
