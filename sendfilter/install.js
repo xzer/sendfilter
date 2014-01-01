@@ -6,7 +6,7 @@
 
 // Editable Items Begin
 var displayName         = "Send Filter"; // The name displayed to the user (don't include the version)
-var version             = "1.0.5.1";
+var version             = "1.0.6";
 var name                = "sendfilter"; // The leafname of the JAR file (without the .jar part)
 
 // The following three sets of variables tell this installer script how your
