@@ -140,8 +140,11 @@ function SendFilter_runFilter(folderURI)
 {
 
 	var logger = new SendFilter_Logger("SendFilter_runFilter()");
-	
-	logger.trace("Begin SendFilter_runFilter(), folderURI = [" + folderURI + "]");
+    
+    var key = "mail.compose.max_recycled_windows";
+    var recycleWindowValue = SendFilter_PrefBranch.getIntPref(key);
+
+	logger.trace("Begin SendFilter_runFilter(), folderURI = [" + folderURI + "], max_recycled_windows=" + recycleWindowValue);
 
 	var rdf = Components.classes["@mozilla.org/rdf/rdf-service;1"].getService(Components.interfaces.nsIRDFService);
 	var resource = rdf.GetResource(folderURI);
